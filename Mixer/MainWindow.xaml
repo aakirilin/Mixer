@@ -1,0 +1,49 @@
+﻿<Window x:Class="Mixer.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Mixer"
+        xmlns:v ="clr-namespace:Mixer.View"
+        mc:Ignorable="d"
+        Title="Mixer" Height="450" Width="800" Icon="1490820352-blender_82389.ico">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="303*"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+        </Grid.RowDefinitions>
+
+        <Label Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" HorizontalContentAlignment="Center" Content="Hi! This program will help you mix key - value pairs."/>
+        <Label Grid.Column="0" Grid.Row="1" HorizontalContentAlignment="Center" Content="This is a sheet with the original key - value pairs."/>
+        <Label Grid.Column="1" Grid.Row="1" HorizontalContentAlignment="Center" Content="This list will contain mixed key - value pairs."/>
+
+        <ListView Grid.Column="0" Grid.Row="2" ItemsSource="{Binding Path=RecordViewsObservable}" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Top">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <v:RecordView />
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+        <ListView Grid.Column="1" Grid.Row="2" ItemsSource="{Binding Path=RecordViewsBlendedObservable}" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Top">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <v:RecordView />
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        
+        <Button Grid.Column="0" Grid.Row="3" Content="Add a new pair to the list." Command="{Binding AddRecordCommand}"/>
+        <Button Grid.Column="1" Grid.Row="3" Grid.ColumnSpan="1" Content="Blend" Command="{Binding BlendCommand}"/>
+
+        <Button Grid.Column="0" Grid.Row="4" Content="Copy to clipboard" Command="{Binding CopyToClipboardRecordViews}"/>
+        <Button Grid.Column="1" Grid.Row="4" Content="Copy to clipboard" Command="{Binding CopyToClipboardRecordViewsBlended}"/>
+    </Grid>
+</Window>
